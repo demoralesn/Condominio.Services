@@ -1,0 +1,11 @@
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\bin\Debug\ServicesDataAccess.dll.config
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\bin\Debug\ServicesDataAccess.dll
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\bin\Debug\ServicesDataAccess.pdb
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\bin\Debug\EntityFramework.dll
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\bin\Debug\EntityFramework.xml
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\obj\Debug\ServicesDataAccess.csproj.CopyComplete
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\obj\Debug\ServicesDataAccess.dll
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\obj\Debug\ServicesDataAccess.pdb
+C:\Users\Pupos\source\repos\Services\ServicesDataAccess\obj\Debug\ServicesDataAccess.csprojAssemblyReference.cache

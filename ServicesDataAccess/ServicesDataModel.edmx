@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CONDOMINIOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="expense">
+          <Key>
+            <PropertyRef Name="expense_id" />
+          </Key>
+          <Property Name="expense_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="period_id" Type="int" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="expense_entity_id" Type="int" />
+          <Property Name="expense_concept_id" Type="int" />
+          <Property Name="entry_date" Type="datetime" />
+          <Property Name="doc_number" Type="int" />
+          <Property Name="voucher_id" Type="int" />
+        </EntityType>
+        <EntityType Name="expense_concept">
+          <Key>
+            <PropertyRef Name="expense_concept_id" />
+          </Key>
+          <Property Name="expense_concept_id" Type="int" Nullable="false" />
+          <Property Name="expense_concept_desc" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="expense_entity">
+          <Key>
+            <PropertyRef Name="expense_entity_id" />
+          </Key>
+          <Property Name="expense_entity_id" Type="int" Nullable="false" />
+          <Property Name="expense_entity_name" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="income">
+          <Key>
+            <PropertyRef Name="income_id" />
+          </Key>
+          <Property Name="income_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="income_concept_id" Type="int" />
+          <Property Name="property_id" Type="int" />
+          <Property Name="period_id" Type="int" />
+          <Property Name="entry_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="income_concept">
+          <Key>
+            <PropertyRef Name="income_concept_id" />
+          </Key>
+          <Property Name="income_concept_id" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="income_concept_desc" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="owner">
+          <Key>
+            <PropertyRef Name="owner_id" />
+          </Key>
+          <Property Name="owner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dni" Type="int" />
+          <Property Name="dni_vr" Type="char" MaxLength="1" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="int" />
+          <Property Name="cell_phone" Type="int" />
+          <Property Name="gender" Type="int" />
+          <Property Name="country_origin" Type="int" />
+          <Property Name="birth_date" Type="datetime" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="state" Type="int" />
+        </EntityType>
+        <EntityType Name="period">
+          <Key>
+            <PropertyRef Name="period_id" />
+          </Key>
+          <Property Name="period_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="period_desc" Type="varchar" MaxLength="7" />
+          <Property Name="start_date" Type="datetime" />
+          <Property Name="end_date" Type="datetime" />
+          <Property Name="state" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CONDOMINIO.dbo.vw_month_state_list' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_month_state_list">
+          <Key>
+            <PropertyRef Name="month_state_id" />
+          </Key>
+          <Property Name="month_state_id" Type="int" Nullable="false" />
+          <Property Name="period_desc" Type="varchar" MaxLength="7" />
+          <Property Name="generation_date" Type="datetime" />
+          <Property Name="total_records" Type="int" />
+          <Property Name="total_expenses" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="total_incomes" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="total_net" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <Function Name="sp_c_month_state" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="period_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_c_property" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_c_summary_by_period" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="period_id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="CONDOMINIOModelStoreContainer">
+          <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="expense_concept" EntityType="Self.expense_concept" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="expense_entity" EntityType="Self.expense_entity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="income" EntityType="Self.income" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="income_concept" EntityType="Self.income_concept" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="owner" EntityType="Self.owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="period" EntityType="Self.period" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_month_state_list" EntityType="Self.vw_month_state_list" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_month_state_list].[month_state_id] AS [month_state_id], 
+    [vw_month_state_list].[period_desc] AS [period_desc], 
+    [vw_month_state_list].[generation_date] AS [generation_date], 
+    [vw_month_state_list].[total_records] AS [total_records], 
+    [vw_month_state_list].[total_expenses] AS [total_expenses], 
+    [vw_month_state_list].[total_incomes] AS [total_incomes], 
+    [vw_month_state_list].[total_net] AS [total_net]
+    FROM [dbo].[vw_month_state_list] AS [vw_month_state_list]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CONDOMINIOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="owner">
+          <Key>
+            <PropertyRef Name="owner_id" />
+          </Key>
+          <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="Int32" />
+          <Property Name="cell_phone" Type="Int32" />
+          <Property Name="gender" Type="Int32" />
+          <Property Name="country_origin" Type="Int32" />
+          <Property Name="birth_date" Type="DateTime" Precision="3" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="state" Type="Int32" />
+          <Property Name="owner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dni" Type="Int32" />
+          <Property Name="dni_vr" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="CONDOMINIOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="owner" EntityType="Self.owner" />
+          <EntitySet Name="period" EntityType="CONDOMINIOModel.period" />
+          <FunctionImport Name="sp_c_summary_by_period" ReturnType="Collection(CONDOMINIOModel.sp_c_summary_by_period_Result)">
+          <Parameter Name="period_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="expenses" EntityType="CONDOMINIOModel.expense" />
+          <EntitySet Name="expense_concept" EntityType="CONDOMINIOModel.expense_concept" />
+          <EntitySet Name="expense_entity" EntityType="CONDOMINIOModel.expense_entity" />
+          <FunctionImport Name="sp_c_property" ReturnType="Collection(CONDOMINIOModel.sp_c_property_Result)" />
+          <EntitySet Name="vw_month_state_list" EntityType="CONDOMINIOModel.vw_month_state_list" />
+          <FunctionImport Name="sp_c_month_state" ReturnType="Collection(CONDOMINIOModel.sp_c_month_state_Result)">
+          <Parameter Name="period_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="income_concept" EntityType="CONDOMINIOModel.income_concept" />
+          <EntitySet Name="incomes" EntityType="CONDOMINIOModel.income" />
+        </EntityContainer>
+        <EntityType Name="period">
+          <Key>
+            <PropertyRef Name="period_id" />
+          </Key>
+          <Property Name="period_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="period_desc" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="start_date" Type="DateTime" Precision="3" />
+          <Property Name="end_date" Type="DateTime" Precision="3" />
+          <Property Name="state" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="sp_c_summary_by_period_Result">
+          <Property Type="Decimal" Name="total_income" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="total_expense" Nullable="true" Precision="18" Scale="0" />
+        </ComplexType>
+        <EntityType Name="expense">
+          <Key>
+            <PropertyRef Name="expense_id" />
+          </Key>
+          <Property Name="expense_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="expense_entity_id" Type="Int32" />
+          <Property Name="expense_concept_id" Type="Int32" />
+          <Property Name="entry_date" Type="DateTime" Precision="3" />
+          <Property Name="period_id" Type="Int32" />
+          <Property Name="doc_number" Type="Int32" />
+          <Property Name="voucher_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="expense_concept">
+          <Key>
+            <PropertyRef Name="expense_concept_id" />
+          </Key>
+          <Property Name="expense_concept_id" Type="Int32" Nullable="false" />
+          <Property Name="expense_concept_desc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="expense_entity">
+          <Key>
+            <PropertyRef Name="expense_entity_id" />
+          </Key>
+          <Property Name="expense_entity_id" Type="Int32" Nullable="false" />
+          <Property Name="expense_entity_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <ComplexType Name="sp_c_property_Result">
+          <Property Type="Int32" Name="property_id" Nullable="false" />
+          <Property Type="String" Name="property_desc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="property_type" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="property_state_desc" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <EntityType Name="vw_month_state_list">
+          <Key>
+            <PropertyRef Name="month_state_id" />
+          </Key>
+          <Property Name="month_state_id" Type="Int32" Nullable="false" />
+          <Property Name="period_desc" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="generation_date" Type="DateTime" Precision="3" />
+          <Property Name="total_records" Type="Int32" />
+          <Property Name="total_expenses" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="total_incomes" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="total_net" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <ComplexType Name="sp_c_month_state_Result">
+          <Property Type="String" Name="property_desc" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="period_desc" Nullable="true" MaxLength="7" />
+          <Property Type="Decimal" Name="income" Nullable="true" Precision="38" Scale="0" />
+          <Property Type="Decimal" Name="charge" Nullable="true" Precision="38" Scale="0" />
+          <Property Type="Decimal" Name="net" Nullable="true" Precision="38" Scale="0" />
+        </ComplexType>
+        <EntityType Name="income_concept">
+          <Key>
+            <PropertyRef Name="income_concept_id" />
+          </Key>
+          <Property Name="income_concept_id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="income_concept_desc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="income">
+          <Key>
+            <PropertyRef Name="income_id" />
+          </Key>
+          <Property Name="income_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="income_concept_id" Type="Int32" />
+          <Property Name="property_id" Type="Int32" />
+          <Property Name="period_id" Type="Int32" />
+          <Property Name="entry_date" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CONDOMINIOModelStoreContainer" CdmEntityContainer="CONDOMINIOEntities">
+          <EntitySetMapping Name="owner">
+            <EntityTypeMapping TypeName="CONDOMINIOModel.owner">
+              <MappingFragment StoreEntitySet="owner">
+                <ScalarProperty Name="dni_vr" ColumnName="dni_vr" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="owner_id" ColumnName="owner_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="cell_phone" ColumnName="cell_phone" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="country_origin" ColumnName="country_origin" />
+                <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="state" ColumnName="state" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="period">
+            <EntityTypeMapping TypeName="CONDOMINIOModel.period">
+              <MappingFragment StoreEntitySet="period">
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="end_date" ColumnName="end_date" />
+                <ScalarProperty Name="start_date" ColumnName="start_date" />
+                <ScalarProperty Name="period_desc" ColumnName="period_desc" />
+                <ScalarProperty Name="period_id" ColumnName="period_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_c_summary_by_period" FunctionName="CONDOMINIOModel.Store.sp_c_summary_by_period">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CONDOMINIOModel.sp_c_summary_by_period_Result">
+                <ScalarProperty Name="total_income" ColumnName="total_income" />
+                <ScalarProperty Name="total_expense" ColumnName="total_expense" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="expenses">
+            <EntityTypeMapping TypeName="CONDOMINIOModel.expense">
+              <MappingFragment StoreEntitySet="expense">
+                <ScalarProperty Name="voucher_id" ColumnName="voucher_id" />
+                <ScalarProperty Name="doc_number" ColumnName="doc_number" />
+                <ScalarProperty Name="period_id" ColumnName="period_id" />
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="expense_concept_id" ColumnName="expense_concept_id" />
+                <ScalarProperty Name="expense_entity_id" ColumnName="expense_entity_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expense_concept">
+            <EntityTypeMapping TypeName="CONDOMINIOModel.expense_concept">
+              <MappingFragment StoreEntitySet="expense_concept">
+                <ScalarProperty Name="expense_concept_desc" ColumnName="expense_concept_desc" />
+                <ScalarProperty Name="expense_concept_id" ColumnName="expense_concept_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="expense_entity">
+            <EntityTypeMapping TypeName="CONDOMINIOModel.expense_entity">
+              <MappingFragment StoreEntitySet="expense_entity">
+                <ScalarProperty Name="expense_entity_name" ColumnName="expense_entity_name" />
+                <ScalarProperty Name="expense_entity_id" ColumnName="expense_entity_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_c_property" FunctionName="CONDOMINIOModel.Store.sp_c_property">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CONDOMINIOModel.sp_c_property_Result">
+                <ScalarProperty Name="property_id" ColumnName="property_id" />
+                <ScalarProperty Name="property_desc" ColumnName="property_desc" />
+                <ScalarProperty Name="property_type" ColumnName="property_type" />
+                <ScalarProperty Name="property_state_desc" ColumnName="property_state_desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="vw_month_state_list">
+            <EntityTypeMapping TypeName="CONDOMINIOModel.vw_month_state_list">
+              <MappingFragment StoreEntitySet="vw_month_state_list">
+                <ScalarProperty Name="total_net" ColumnName="total_net" />
+                <ScalarProperty Name="total_incomes" ColumnName="total_incomes" />
+                <ScalarProperty Name="total_expenses" ColumnName="total_expenses" />
+                <ScalarProperty Name="total_records" ColumnName="total_records" />
+                <ScalarProperty Name="generation_date" ColumnName="generation_date" />
+                <ScalarProperty Name="period_desc" ColumnName="period_desc" />
+                <ScalarProperty Name="month_state_id" ColumnName="month_state_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_c_month_state" FunctionName="CONDOMINIOModel.Store.sp_c_month_state">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CONDOMINIOModel.sp_c_month_state_Result">
+                <ScalarProperty Name="property_desc" ColumnName="property_desc" />
+                <ScalarProperty Name="period_desc" ColumnName="period_desc" />
+                <ScalarProperty Name="income" ColumnName="income" />
+                <ScalarProperty Name="charge" ColumnName="charge" />
+                <ScalarProperty Name="net" ColumnName="net" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="income_concept">
+            <EntityTypeMapping TypeName="CONDOMINIOModel.income_concept">
+              <MappingFragment StoreEntitySet="income_concept">
+                <ScalarProperty Name="income_concept_desc" ColumnName="income_concept_desc" />
+                <ScalarProperty Name="income_concept_id" ColumnName="income_concept_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="incomes">
+            <EntityTypeMapping TypeName="CONDOMINIOModel.income">
+              <MappingFragment StoreEntitySet="income">
+                <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+                <ScalarProperty Name="period_id" ColumnName="period_id" />
+                <ScalarProperty Name="property_id" ColumnName="property_id" />
+                <ScalarProperty Name="income_concept_id" ColumnName="income_concept_id" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="income_id" ColumnName="income_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CONDOMINIOModelStoreContainer" CdmEntityContainer="CONDOMINIOEntities">
+    <EntitySetMapping Name="owner">
+      <EntityTypeMapping TypeName="CONDOMINIOModel.owner">
+        <MappingFragment StoreEntitySet="owner">
+          <ScalarProperty Name="dni_vr" ColumnName="dni_vr" />
+          <ScalarProperty Name="dni" ColumnName="dni" />
+          <ScalarProperty Name="owner_id" ColumnName="owner_id" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="cell_phone" ColumnName="cell_phone" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="country_origin" ColumnName="country_origin" />
+          <ScalarProperty Name="birth_date" ColumnName="birth_date" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="state" ColumnName="state" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="period">
+      <EntityTypeMapping TypeName="CONDOMINIOModel.period">
+        <MappingFragment StoreEntitySet="period">
+          <ScalarProperty Name="state" ColumnName="state" />
+          <ScalarProperty Name="end_date" ColumnName="end_date" />
+          <ScalarProperty Name="start_date" ColumnName="start_date" />
+          <ScalarProperty Name="period_desc" ColumnName="period_desc" />
+          <ScalarProperty Name="period_id" ColumnName="period_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_c_summary_by_period" FunctionName="CONDOMINIOModel.Store.sp_c_summary_by_period">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CONDOMINIOModel.sp_c_summary_by_period_Result">
+          <ScalarProperty Name="total_income" ColumnName="total_income" />
+          <ScalarProperty Name="total_expense" ColumnName="total_expense" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="expenses">
+      <EntityTypeMapping TypeName="CONDOMINIOModel.expense">
+        <MappingFragment StoreEntitySet="expense">
+          <ScalarProperty Name="voucher_id" ColumnName="voucher_id" />
+          <ScalarProperty Name="doc_number" ColumnName="doc_number" />
+          <ScalarProperty Name="period_id" ColumnName="period_id" />
+          <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+          <ScalarProperty Name="expense_concept_id" ColumnName="expense_concept_id" />
+          <ScalarProperty Name="expense_entity_id" ColumnName="expense_entity_id" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="expense_id" ColumnName="expense_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expense_concept">
+      <EntityTypeMapping TypeName="CONDOMINIOModel.expense_concept">
+        <MappingFragment StoreEntitySet="expense_concept">
+          <ScalarProperty Name="expense_concept_desc" ColumnName="expense_concept_desc" />
+          <ScalarProperty Name="expense_concept_id" ColumnName="expense_concept_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expense_entity">
+      <EntityTypeMapping TypeName="CONDOMINIOModel.expense_entity">
+        <MappingFragment StoreEntitySet="expense_entity">
+          <ScalarProperty Name="expense_entity_name" ColumnName="expense_entity_name" />
+          <ScalarProperty Name="expense_entity_id" ColumnName="expense_entity_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_c_property" FunctionName="CONDOMINIOModel.Store.sp_c_property">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CONDOMINIOModel.sp_c_property_Result">
+          <ScalarProperty Name="property_id" ColumnName="property_id" />
+          <ScalarProperty Name="property_desc" ColumnName="property_desc" />
+          <ScalarProperty Name="property_type" ColumnName="property_type" />
+          <ScalarProperty Name="property_state_desc" ColumnName="property_state_desc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="vw_month_state_list">
+      <EntityTypeMapping TypeName="CONDOMINIOModel.vw_month_state_list">
+        <MappingFragment StoreEntitySet="vw_month_state_list">
+          <ScalarProperty Name="total_net" ColumnName="total_net" />
+          <ScalarProperty Name="total_incomes" ColumnName="total_incomes" />
+          <ScalarProperty Name="total_expenses" ColumnName="total_expenses" />
+          <ScalarProperty Name="total_records" ColumnName="total_records" />
+          <ScalarProperty Name="generation_date" ColumnName="generation_date" />
+          <ScalarProperty Name="period_desc" ColumnName="period_desc" />
+          <ScalarProperty Name="month_state_id" ColumnName="month_state_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_c_month_state" FunctionName="CONDOMINIOModel.Store.sp_c_month_state">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CONDOMINIOModel.sp_c_month_state_Result">
+          <ScalarProperty Name="property_desc" ColumnName="property_desc" />
+          <ScalarProperty Name="period_desc" ColumnName="period_desc" />
+          <ScalarProperty Name="income" ColumnName="income" />
+          <ScalarProperty Name="charge" ColumnName="charge" />
+          <ScalarProperty Name="net" ColumnName="net" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="income_concept">
+      <EntityTypeMapping TypeName="CONDOMINIOModel.income_concept">
+        <MappingFragment StoreEntitySet="income_concept">
+          <ScalarProperty Name="income_concept_desc" ColumnName="income_concept_desc" />
+          <ScalarProperty Name="income_concept_id" ColumnName="income_concept_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="incomes">
+      <EntityTypeMapping TypeName="CONDOMINIOModel.income">
+        <MappingFragment StoreEntitySet="income">
+          <ScalarProperty Name="entry_date" ColumnName="entry_date" />
+          <ScalarProperty Name="period_id" ColumnName="period_id" />
+          <ScalarProperty Name="property_id" ColumnName="property_id" />
+          <ScalarProperty Name="income_concept_id" ColumnName="income_concept_id" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="income_id" ColumnName="income_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CONDOMINIOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="expense">
+    <Key>
+      <PropertyRef Name="expense_id" />
+    </Key>
+    <Property Name="expense_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="period_id" Type="int" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="expense_entity_id" Type="int" />
+    <Property Name="expense_concept_id" Type="int" />
+    <Property Name="entry_date" Type="datetime" />
+    <Property Name="doc_number" Type="int" />
+    <Property Name="voucher_id" Type="int" />
+  </EntityType>
+  <EntityType Name="expense_concept">
+    <Key>
+      <PropertyRef Name="expense_concept_id" />
+    </Key>
+    <Property Name="expense_concept_id" Type="int" Nullable="false" />
+    <Property Name="expense_concept_desc" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="expense_entity">
+    <Key>
+      <PropertyRef Name="expense_entity_id" />
+    </Key>
+    <Property Name="expense_entity_id" Type="int" Nullable="false" />
+    <Property Name="expense_entity_name" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="income">
+    <Key>
+      <PropertyRef Name="income_id" />
+    </Key>
+    <Property Name="income_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="amount" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="income_concept_id" Type="int" />
+    <Property Name="property_id" Type="int" />
+    <Property Name="period_id" Type="int" />
+    <Property Name="entry_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="income_concept">
+    <Key>
+      <PropertyRef Name="income_concept_id" />
+    </Key>
+    <Property Name="income_concept_id" Type="nchar" MaxLength="10" Nullable="false" />
+    <Property Name="income_concept_desc" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="owner">
+    <Key>
+      <PropertyRef Name="owner_id" />
+    </Key>
+    <Property Name="owner_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="dni" Type="int" />
+    <Property Name="dni_vr" Type="char" MaxLength="1" />
+    <Property Name="first_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="last_name" Type="nvarchar" MaxLength="50" />
+    <Property Name="phone" Type="int" />
+    <Property Name="cell_phone" Type="int" />
+    <Property Name="gender" Type="int" />
+    <Property Name="country_origin" Type="int" />
+    <Property Name="birth_date" Type="datetime" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="state" Type="int" />
+  </EntityType>
+  <EntityType Name="period">
+    <Key>
+      <PropertyRef Name="period_id" />
+    </Key>
+    <Property Name="period_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="period_desc" Type="varchar" MaxLength="7" />
+    <Property Name="start_date" Type="datetime" />
+    <Property Name="end_date" Type="datetime" />
+    <Property Name="state" Type="bit" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'CONDOMINIO.dbo.vw_month_state_list' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="vw_month_state_list">
+    <Key>
+      <PropertyRef Name="month_state_id" />
+    </Key>
+    <Property Name="month_state_id" Type="int" Nullable="false" />
+    <Property Name="period_desc" Type="varchar" MaxLength="7" />
+    <Property Name="generation_date" Type="datetime" />
+    <Property Name="total_records" Type="int" />
+    <Property Name="total_expenses" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="total_incomes" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="total_net" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <Function Name="sp_c_month_state" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="period_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_c_property" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_c_summary_by_period" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="period_id" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="CONDOMINIOModelStoreContainer">
+    <EntitySet Name="expense" EntityType="Self.expense" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="expense_concept" EntityType="Self.expense_concept" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="expense_entity" EntityType="Self.expense_entity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="income" EntityType="Self.income" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="income_concept" EntityType="Self.income_concept" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="owner" EntityType="Self.owner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="period" EntityType="Self.period" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vw_month_state_list" EntityType="Self.vw_month_state_list" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vw_month_state_list].[month_state_id] AS [month_state_id], 
+    [vw_month_state_list].[period_desc] AS [period_desc], 
+    [vw_month_state_list].[generation_date] AS [generation_date], 
+    [vw_month_state_list].[total_records] AS [total_records], 
+    [vw_month_state_list].[total_expenses] AS [total_expenses], 
+    [vw_month_state_list].[total_incomes] AS [total_incomes], 
+    [vw_month_state_list].[total_net] AS [total_net]
+    FROM [dbo].[vw_month_state_list] AS [vw_month_state_list]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

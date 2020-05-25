@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0f5e7c4ebfdb4005830c80bd57bd66ec" Name="Diagram1" ZoomLevel="86">
+        <EntityTypeShape EntityType="CONDOMINIOModel.owner" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CONDOMINIOModel.period" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CONDOMINIOModel.expense" Width="1.5" PointX="3.75" PointY="3.75" />
+        <EntityTypeShape EntityType="CONDOMINIOModel.expense_concept" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CONDOMINIOModel.expense_entity" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="CONDOMINIOModel.vw_month_state_list" Width="1.5" PointX="6.375" PointY="3.75" />
+        <EntityTypeShape EntityType="CONDOMINIOModel.income_concept" Width="1.5" PointX="3.375" PointY="7.75" />
+        <EntityTypeShape EntityType="CONDOMINIOModel.income" Width="1.5" PointX="7.375" PointY="7.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

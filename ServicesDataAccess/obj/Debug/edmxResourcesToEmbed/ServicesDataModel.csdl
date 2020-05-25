@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CONDOMINIOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="owner">
+    <Key>
+      <PropertyRef Name="owner_id" />
+    </Key>
+    <Property Name="first_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="last_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="phone" Type="Int32" />
+    <Property Name="cell_phone" Type="Int32" />
+    <Property Name="gender" Type="Int32" />
+    <Property Name="country_origin" Type="Int32" />
+    <Property Name="birth_date" Type="DateTime" Precision="3" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="state" Type="Int32" />
+    <Property Name="owner_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="dni" Type="Int32" />
+    <Property Name="dni_vr" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="CONDOMINIOEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="owner" EntityType="Self.owner" />
+    <EntitySet Name="period" EntityType="CONDOMINIOModel.period" />
+    <FunctionImport Name="sp_c_summary_by_period" ReturnType="Collection(CONDOMINIOModel.sp_c_summary_by_period_Result)">
+      <Parameter Name="period_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="expenses" EntityType="CONDOMINIOModel.expense" />
+    <EntitySet Name="expense_concept" EntityType="CONDOMINIOModel.expense_concept" />
+    <EntitySet Name="expense_entity" EntityType="CONDOMINIOModel.expense_entity" />
+    <FunctionImport Name="sp_c_property" ReturnType="Collection(CONDOMINIOModel.sp_c_property_Result)" />
+    <EntitySet Name="vw_month_state_list" EntityType="CONDOMINIOModel.vw_month_state_list" />
+    <FunctionImport Name="sp_c_month_state" ReturnType="Collection(CONDOMINIOModel.sp_c_month_state_Result)">
+      <Parameter Name="period_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="income_concept" EntityType="CONDOMINIOModel.income_concept" />
+    <EntitySet Name="incomes" EntityType="CONDOMINIOModel.income" />
+  </EntityContainer>
+  <EntityType Name="period">
+    <Key>
+      <PropertyRef Name="period_id" />
+    </Key>
+    <Property Name="period_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="period_desc" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="start_date" Type="DateTime" Precision="3" />
+    <Property Name="end_date" Type="DateTime" Precision="3" />
+    <Property Name="state" Type="Boolean" />
+  </EntityType>
+  <ComplexType Name="sp_c_summary_by_period_Result">
+    <Property Type="Decimal" Name="total_income" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="total_expense" Nullable="true" Precision="18" Scale="0" />
+  </ComplexType>
+  <EntityType Name="expense">
+    <Key>
+      <PropertyRef Name="expense_id" />
+    </Key>
+    <Property Name="expense_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="expense_entity_id" Type="Int32" />
+    <Property Name="expense_concept_id" Type="Int32" />
+    <Property Name="entry_date" Type="DateTime" Precision="3" />
+    <Property Name="period_id" Type="Int32" />
+    <Property Name="doc_number" Type="Int32" />
+    <Property Name="voucher_id" Type="Int32" />
+  </EntityType>
+  <EntityType Name="expense_concept">
+    <Key>
+      <PropertyRef Name="expense_concept_id" />
+    </Key>
+    <Property Name="expense_concept_id" Type="Int32" Nullable="false" />
+    <Property Name="expense_concept_desc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="expense_entity">
+    <Key>
+      <PropertyRef Name="expense_entity_id" />
+    </Key>
+    <Property Name="expense_entity_id" Type="Int32" Nullable="false" />
+    <Property Name="expense_entity_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="sp_c_property_Result">
+    <Property Type="Int32" Name="property_id" Nullable="false" />
+    <Property Type="String" Name="property_desc" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="property_type" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="property_state_desc" Nullable="true" MaxLength="30" />
+  </ComplexType>
+  <EntityType Name="vw_month_state_list">
+    <Key>
+      <PropertyRef Name="month_state_id" />
+    </Key>
+    <Property Name="month_state_id" Type="Int32" Nullable="false" />
+    <Property Name="period_desc" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+    <Property Name="generation_date" Type="DateTime" Precision="3" />
+    <Property Name="total_records" Type="Int32" />
+    <Property Name="total_expenses" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="total_incomes" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="total_net" Type="Decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <ComplexType Name="sp_c_month_state_Result">
+    <Property Type="String" Name="property_desc" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="period_desc" Nullable="true" MaxLength="7" />
+    <Property Type="Decimal" Name="income" Nullable="true" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="charge" Nullable="true" Precision="38" Scale="0" />
+    <Property Type="Decimal" Name="net" Nullable="true" Precision="38" Scale="0" />
+  </ComplexType>
+  <EntityType Name="income_concept">
+    <Key>
+      <PropertyRef Name="income_concept_id" />
+    </Key>
+    <Property Name="income_concept_id" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="income_concept_desc" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="income">
+    <Key>
+      <PropertyRef Name="income_id" />
+    </Key>
+    <Property Name="income_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="amount" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="income_concept_id" Type="Int32" />
+    <Property Name="property_id" Type="Int32" />
+    <Property Name="period_id" Type="Int32" />
+    <Property Name="entry_date" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>
